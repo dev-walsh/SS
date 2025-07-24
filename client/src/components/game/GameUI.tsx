@@ -4,7 +4,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { useRoulette } from '../../lib/stores/useRoulette';
 import { useTokens } from '../../lib/stores/useTokens';
-import { useWallet } from '../../lib/stores/useWallet';
+
 import { useAudio } from '../../lib/stores/useAudio';
 import { Volume2, VolumeX, Trophy, Coins } from 'lucide-react';
 
@@ -18,7 +18,6 @@ const GameUI: React.FC = () => {
   } = useRoulette();
   
   const { balance, totalEarned } = useTokens();
-  const { walletAddress, disconnect } = useWallet();
   const { isMuted, toggleMute } = useAudio();
 
   const getPhaseDisplay = () => {
@@ -36,9 +35,7 @@ const GameUI: React.FC = () => {
     }
   };
 
-  const formatWalletAddress = (address: string) => {
-    return `${address.slice(0, 4)}...${address.slice(-4)}`;
-  };
+
 
   const phase = getPhaseDisplay();
 
@@ -99,43 +96,34 @@ const GameUI: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Right Panel - Wallet & Controls */}
-        <Card className="bg-black/90 border-yellow-500/50 min-w-[300px]">
+        {/* Right Panel - Game Controls */}
+        <Card className="bg-black/90 border-yellow-500/50 min-w-[250px]">
           <CardContent className="p-4">
             <div className="space-y-3">
-              {/* Wallet Info */}
-              {walletAddress && (
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-white font-medium">Wallet:</span>
-                    <span className="text-gray-400 text-sm font-mono">
-                      {formatWalletAddress(walletAddress)}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-white font-medium flex items-center gap-1">
-                      <Coins className="w-4 h-4" />
-                      Balance:
-                    </span>
-                    <Badge variant="outline" className="text-yellow-400 border-yellow-400">
-                      {balance.toLocaleString()} tokens
-                    </Badge>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-white font-medium flex items-center gap-1">
-                      <Trophy className="w-4 h-4" />
-                      Total Earned:
-                    </span>
-                    <Badge variant="outline" className="text-green-400 border-green-400">
-                      {totalEarned.toLocaleString()} tokens
-                    </Badge>
-                  </div>
+              {/* Token Stats */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-medium flex items-center gap-1">
+                    <Coins className="w-4 h-4" />
+                    Balance:
+                  </span>
+                  <Badge variant="outline" className="text-yellow-400 border-yellow-400">
+                    {balance.toLocaleString()} tokens
+                  </Badge>
                 </div>
-              )}
 
-              {/* Controls */}
+                <div className="flex items-center justify-between">
+                  <span className="text-white font-medium flex items-center gap-1">
+                    <Trophy className="w-4 h-4" />
+                    Total Earned:
+                  </span>
+                  <Badge variant="outline" className="text-green-400 border-green-400">
+                    {totalEarned.toLocaleString()} tokens
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Game Controls */}
               <div className="flex gap-2 pt-2 border-t border-gray-700">
                 <Button
                   onClick={toggleMute}
@@ -154,14 +142,6 @@ const GameUI: React.FC = () => {
                   disabled={gamePhase === 'spinning'}
                 >
                   New Game
-                </Button>
-
-                <Button
-                  onClick={disconnect}
-                  variant="destructive"
-                  size="sm"
-                >
-                  Disconnect
                 </Button>
               </div>
             </div>

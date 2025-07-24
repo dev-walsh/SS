@@ -19,7 +19,7 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import RouletteWheel from "./components/game/RouletteWheel";
 import BettingInterface from "./components/game/BettingInterface";
 import GameUI from "./components/game/GameUI";
-import WalletConnection from "./components/game/WalletConnection";
+import WalletButton from "./components/game/WalletButton";
 import RouletteTable from "./components/game/RouletteTable";
 import ParticleEffects from "./components/game/ParticleEffects";
 import SoundManager from "./components/game/SoundManager";
@@ -68,13 +68,13 @@ function App() {
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
             <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
+              {/* Wallet Button - Always visible */}
+              <WalletButton />
+              
               {showCanvas && (
                 <KeyboardControls map={controls}>
-                  {/* Show wallet connection if not connected */}
-                  {!isConnected && gamePhase === 'waiting' && <WalletConnection />}
-
-                  {/* Main game canvas */}
-                  {isConnected && (
+                  {/* Main game canvas - always show */}
+                  {(
                     <>
                       <Canvas
                         shadows
