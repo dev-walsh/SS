@@ -72,10 +72,12 @@ const WalletConnection: React.FC = () => {
           {/* Supported Wallets */}
           <div className="text-center">
             <p className="text-gray-400 text-xs mb-2">Supported Wallets:</p>
-            <div className="flex justify-center gap-4 text-gray-500 text-xs">
+            <div className="flex justify-center gap-2 text-gray-500 text-xs flex-wrap">
               <span>Phantom</span>
               <span>•</span>
               <span>Solflare</span>
+              <span>•</span>
+              <span>Trust Wallet</span>
               <span>•</span>
               <span>And more</span>
             </div>

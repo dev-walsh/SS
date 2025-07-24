@@ -6,7 +6,12 @@ import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { 
+  PhantomWalletAdapter, 
+  SolflareWalletAdapter,
+  TrustWalletAdapter,
+  TorusWalletAdapter
+} from '@solana/wallet-adapter-wallets';
 import "@fontsource/inter";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
@@ -36,12 +41,14 @@ const controls = [
 
 const queryClient = new QueryClient();
 
-// Configure Solana network and wallets
-const network = WalletAdapterNetwork.Mainnet;
+// Configure Solana network and wallets with Trust Wallet support
+const network = WalletAdapterNetwork.Devnet; // Use devnet for development
 const endpoint = clusterApiUrl(network);
 const wallets = [
   new PhantomWalletAdapter(),
+  new TrustWalletAdapter(), // Trust Wallet is now supported!
   new SolflareWalletAdapter(),
+  new TorusWalletAdapter(),
 ];
 
 // Main App component
